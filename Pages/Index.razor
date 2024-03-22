@@ -1,0 +1,72 @@
+﻿@page "/"
+@inherits IndexBase
+@using BlazorApp3.Pages
+
+
+<EditForm EditContext="Context">
+    <ObjectGraphDataAnnotationsValidator />
+    <ValidationSummary/>
+
+    <h1>IsFormValid = @IsFormValid</h1>
+    <p>
+        Context.GetValidationMessages().Any = @Context.GetValidationMessages().Any()
+    </p>
+
+    <table>
+        <tr>
+            <td>
+                Id
+            </td>
+            <td>
+                <InputNumber @bind-Value="User.Id" style="width:100%" />
+                <ValidationMessage For="()=>User.Id" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                <InputText @bind-Value="User.Name" style="width:100%" />
+                <ValidationMessage For="()=>User.Name" />
+            </td>
+        </tr>        
+        @foreach(var address in User.Addresses)
+        {
+            <tr>
+                <td colspan="2">Address @(User.Addresses.IndexOf(address)+1)</td>
+            </tr>
+            <tr>
+                <td>
+                    Street
+                </td>
+                <td>
+                    <InputText @bind-Value="address.Street" style="width:100%" />
+                    <ValidationMessage For="()=>address.Street" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number
+                </td>
+                <td>
+                    <InputNumber @bind-Value="address.Number" style="width:100%"  />
+                    <ValidationMessage For="()=>address.Number" />
+                </td>
+            </tr>
+        }
+    </table>
+
+    <p>
+        <input type="button" @onclick="Validate" value="Validate"/>
+    </p>
+
+
+    
+
+    
+    
+
+</EditForm>
+
+
